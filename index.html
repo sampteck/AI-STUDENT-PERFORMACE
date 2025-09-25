@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Student Performance System — Crawford University</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">🎓 Crawford — AI Student Performance</div>
+      <div class="subtitle">B.Sc Final Year Project • 2024/2025</div>
+    </div>
+    <div class="header-actions">
+      <div class="controls">
+        <input id="globalSearch" type="search" placeholder="Search student name..." />
+        <select id="filterCategory">
+          <option value="all">All categories</option>
+          <option value="excellent">Excellent</option>
+          <option value="average">Average</option>
+          <option value="poor">Poor</option>
+        </select>
+      </div>
+      <div class="action-buttons">
+        <button id="exportAllCSV" class="btn">Export CSV</button>
+        <button id="exportAllPDF" class="btn">Export PDF (Professional)</button>
+        <button id="darkModeToggle" class="icon-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav>
+        <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" data-section="analysis">Analysis</a>
+        <a href="#" class="nav-link" data-section="recommendations">AI Suggestions</a>
+        <a href="#" class="nav-link" data-section="about">About</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <!-- Dashboard -->
+      <section id="dashboard" class="section active">
+        <h2>Dashboard</h2>
+
+        <div class="kpis">
+          <div class="kpi card">
+            <div class="kpi-title">Total Students</div>
+            <div id="kpiTotal" class="kpi-value">0</div>
+          </div>
+          <div class="kpi card">
+            <div class="kpi-title">Average Score</div>
+            <div id="kpiAvg" class="kpi-value">0%</div>
+          </div>
+          <div class="kpi card">
+            <div class="kpi-title">At Risk</div>
+            <div id="kpiRisk" class="kpi-value">0</div>
+          </div>
+        </div>
+
+        <div class="charts-grid">
+          <div class="card">
+            <h3>Student Scores (per student)</h3>
+            <canvas id="performanceChart" height="200"></canvas>
+          </div>
+
+          <div class="card">
+            <h3>Subject Averages</h3>
+            <canvas id="subjectChart" height="200"></canvas>
+          </div>
+
+          <div class="card">
+            <h3>Performance Trend</h3>
+            <canvas id="trendChart" height="200"></canvas>
+          </div>
+
+          <div class="card">
+            <h3>Strengths (Radar)</h3>
+            <canvas id="radarChart" height="200"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analysis -->
+      <section id="analysis" class="section">
+        <h2>Analysis & Data</h2>
+        <div class="card">
+          <div class="table-actions">
+            <label>Show
+              <select id="rowsPerPage">
+                <option value="10">10 rows</option>
+                <option value="25">25 rows</option>
+                <option value="50">50 rows</option>
+              </select>
+            </label>
+            <div class="small-info">Tip: use the search box above to filter by student name.</div>
+          </div>
+          <table id="studentTable" class="table">
+            <thead>
+              <tr>
+                <th>#</th><th>Name</th><th>Math</th><th>Science</th><th>English</th><th>Avg</th><th>Category</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Recommendations -->
+      <section id="recommendations" class="section">
+        <h2>AI Suggestions</h2>
+        <div class="card">
+          <button id="genRecs" class="btn">Generate AI Suggestions</button>
+          <div id="suggestions" class="suggestions-grid"></div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="section">
+        <h2>About</h2>
+        <div class="card">
+          <p>This demo implements an AI-style student performance prediction & reporting system for Crawford University final year project (2024/2025). It includes charts, exportable professional reports (PDF with charts and tables), search/filter, AI suggestions, dark mode, and a demo dataset so you can present immediately in VS Code with Live Server.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <small>© 2025 Crawford University — Computer Science Department</small>
+  </footer>
+
+  <!-- Overlay & Toast container -->
+  <div id="themeOverlay" class="theme-transition"></div>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- App script -->
+  <script src="app.js"></script>
+</body>
+</html>
